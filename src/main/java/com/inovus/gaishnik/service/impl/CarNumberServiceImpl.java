@@ -19,7 +19,7 @@ public class CarNumberServiceImpl implements CarNumberService {
     @Override
     public CarNumber next() {
 
-        CarNumber nextCarNumber;
+        char[] letters = new char[]{'А', 'Е', 'Т', 'О', 'Р', 'Н', 'У', 'К', 'Х', 'С', 'В', 'М'};
 
         do {
             if (currentCarNumber == null) {
