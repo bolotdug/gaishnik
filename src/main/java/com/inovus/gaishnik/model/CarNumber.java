@@ -17,12 +17,13 @@ import java.util.UUID;
 public class CarNumber {
 
     @Id
-    String fullNumber;
+    private String fullNumber;
 
-    Integer number;
-    Character firstCharacter;
-    Character secondCharacter;
-    Character thirdCharacter;
+    private Integer number;
+    private Character firstCharacter;
+    private Character secondCharacter;
+    private Character thirdCharacter;
+    private static final String REGION = "116 RUS";
 
     @Override
     public String toString() {
@@ -34,7 +35,7 @@ public class CarNumber {
             fullNumber.insert(0, "0");
         }
 
-        fullNumber.insert(0, firstCharacter).append(secondCharacter).append(thirdCharacter).append(" 116 RUS");
+        fullNumber.insert(0, firstCharacter).append(secondCharacter).append(thirdCharacter).append(REGION);
         return fullNumber.toString();
     }
 }
