@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.server.ResponseStatusException;
 
-import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CarNumberServiceImplTest extends GaishnikApplicationTests{
@@ -25,6 +24,26 @@ class CarNumberServiceImplTest extends GaishnikApplicationTests{
     }
 
     @Test
+    void nextOnTheLastNumber() throws LastNumberException {
+        service.setCurrentCarNumber(createLastNumberInTheThirdLetter());
+        CarNumber nextCarNumber = service.next();
+        assertEquals(nextCarNumber.getNumber(), 0);
+        assertEquals(nextCarNumber.getFirstCharacter(), 'А');
+        assertEquals(nextCarNumber.getSecondCharacter(), 'А');
+        assertEquals(nextCarNumber.getThirdCharacter(), 'В');
+    }
+
+    @Test
+    void nextOnTheLastNumberThirdLetter() throws LastNumberException {
+        service.setCurrentCarNumber(createLastNumberInTheRow());
+        CarNumber nextCarNumber = service.next();
+        assertEquals(nextCarNumber.getNumber(), 0);
+        assertEquals(nextCarNumber.getFirstCharacter(), 'В');
+        assertEquals(nextCarNumber.getSecondCharacter(), 'А');
+        assertEquals(nextCarNumber.getThirdCharacter(), 'А');
+    }
+
+    @Test
     void randomTest() {
         CarNumber createdCarNumber = service.random();
     }
@@ -38,6 +57,24 @@ class CarNumberServiceImplTest extends GaishnikApplicationTests{
         return CarNumber.builder()
                 .number(999)
                 .firstCharacter('Х')
+                .secondCharacter('Х')
+                .thirdCharacter('Х')
+                .build();
+    }
+
+    private CarNumber createLastNumberInTheThirdLetter(){
+        return CarNumber.builder()
+                .number(999)
+                .firstCharacter('А')
+                .secondCharacter('А')
+                .thirdCharacter('А')
+                .build();
+    }
+
+    private CarNumber createLastNumberInTheRow(){
+        return CarNumber.builder()
+                .number(999)
+                .firstCharacter('А')
                 .secondCharacter('Х')
                 .thirdCharacter('Х')
                 .build();
